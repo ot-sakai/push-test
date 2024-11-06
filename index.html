@@ -6,7 +6,7 @@
   <script>
     // service workerが有効なら、service-worker.js を登録します
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js');
+        navigator.serviceWorker.register('./service-worker.js');
    }
   </script>
 </head>
@@ -44,7 +44,7 @@
                 Notification.requestPermission().then((permission) => {
                     const messaging = getMessaging();
                     // Add the public key generated from the console here.
-                    getToken(messaging, {vapidKey: "BJmddamGY9Mkr9Y4u8yVGPKLVpILgbisUsWkeBGBiVRENt3ci1ng66EsfaVcXEHRyjFFPbpIHH1-wPwR2XccmwE"})
+                    getToken(messaging, {vapidKey: "BKRExn6Sv_SusHpFCKpdre-tpXZzvFPAvXFrv4UkIMQs1NFKohx540EeH963vnbSQufxlBYL27QgtUgjy7wrmO8"})
                         .then((token) => {
                             if (token) {
                                 // tokenを出力

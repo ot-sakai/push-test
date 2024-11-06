@@ -1,7 +1,13 @@
 var CACHE_NAME = 'pwasample';
 var urlsToCache = [
-    '/apps/pwa/',
-    '/apps/pwa/index.html'
+    './',
+    './index.html',
+    './main.js',
+    './manifest.json',
+    './service-worker.js',
+    './firebase-messaging-sw.js',
+    './modules/config.mjs',
+    './modules/token.mjs' 
 ];
 
 self.addEventListener('install', function(event) {
@@ -19,7 +25,23 @@ self.addEventListener('fetch', function(event) {
         caches
             .match(event.request)
             .then(function(response) {
-                return response ? response : fetch(event.request);
+                if(response) return response;
+
+                var fetchRequest = event.request.clone();
+                return fetch(fetchRequest).then(function(response) {
+                    if(!response || response.status !== 200 || response.type !== "basic") {
+                        return response;
+                    }
+
+                    var responseToCache = response.clone();
+
+                    caches.open(CHACH_NAME).then(function(cache) {
+                        cache.put(event.request, responseToCache);
+                    });
+
+                    return response;
+                })
+                
             })
     );
 });
